@@ -22,6 +22,11 @@
 #include <string>
 
 #include <rclcpp/rclcpp.hpp>
+
+#ifdef ERROR
+#undef ERROR
+#endif
+
 #include <rclcpp_lifecycle/lifecycle_node.hpp>
 #include <lifecycle_msgs/msg/state.hpp>
 
