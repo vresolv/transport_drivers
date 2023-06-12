@@ -1,0 +1,3 @@
+[submodule "udp_msgs"]
+	path = udp_msgs
+	url = git@github.com:flynneva/udp_msgs.git
