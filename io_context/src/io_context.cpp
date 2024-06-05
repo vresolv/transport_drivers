@@ -14,12 +14,9 @@
 
 // Developed by LeoDrive, 2021
 
-#include "io_context/io_context.hpp"
-
-#include <iostream>
+#include "io_context.hpp"
 
 #include "asio.hpp"
-#include "rclcpp/logging.hpp"
 
 namespace drivers
 {
@@ -32,7 +29,8 @@ IoContext::IoContext()
 IoContext::IoContext(size_t threads_count)
 : m_ios(new asio::io_service()),
   m_work(new asio::io_service::work(ios())),
-  m_ios_thread_workers(new drivers::common::thread_group())
+  m_ios_thread_workers(new drivers::common::thread_group()),
+  logger("IoContext")
 {
   for (size_t i = 0; i < threads_count; ++i) {
     m_ios_thread_workers->create_thread(
@@ -41,9 +39,7 @@ IoContext::IoContext(size_t threads_count)
       });
   }
 
-  RCLCPP_INFO_STREAM(
-    rclcpp::get_logger("IoContext::IoContext"), "Thread(s) Created: " <<
-      serviceThreadCount());
+  logger.log(DDSLogger::Level::LOG_INFO, "Thread(s) Created: " + serviceThreadCount());
 }
 
 IoContext::~IoContext()

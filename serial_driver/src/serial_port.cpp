@@ -19,7 +19,6 @@
 #include <utility>
 #include <vector>
 
-#include <rclcpp/logging.hpp>
 
 namespace drivers
 {
@@ -33,7 +32,8 @@ SerialPort::SerialPort(
 : m_ctx(ctx),
   m_device_name(device_name),
   m_serial_port(ctx.ios()),
-  m_port_config(serial_port_config)
+  m_port_config(serial_port_config),
+  logger("SerialPort")
 {
   m_recv_buffer.resize(m_recv_buffer_size);
 }
@@ -90,7 +90,7 @@ void SerialPort::async_send_handler(
 {
   (void)bytes_transferred;
   if (error) {
-    RCLCPP_ERROR_STREAM(rclcpp::get_logger("SerialPort::async_send_handler"), error.message());
+    logger.log(DDSLogger::Level::LOG_ERROR, "async_send_handler: " + error.message());
     return;
   }
 }
@@ -100,7 +100,7 @@ void SerialPort::async_receive_handler(
   size_t bytes_transferred)
 {
   if (error) {
-    RCLCPP_ERROR_STREAM(rclcpp::get_logger("SerialPort::async_receive_handler"), error.message());
+    logger.log(DDSLogger::Level::LOG_ERROR, "async_receive_handler: " + error.message());
     m_serial_port.close();
     return;
   }
@@ -140,7 +140,7 @@ void SerialPort::close()
   asio::error_code error;
   m_serial_port.close(error);
   if (error) {
-    RCLCPP_ERROR_STREAM(rclcpp::get_logger("SerialPort::close"), error.message());
+    logger.log(DDSLogger::Level::LOG_ERROR, "close: " + error.message());
   }
 }
 

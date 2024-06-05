@@ -20,8 +20,10 @@
 #include <string>
 #include <vector>
 
-#include "io_context/common.hpp"
-#include "io_context/io_context.hpp"
+#include "common.hpp"
+#include "io_context.hpp"
+
+#include <DDSLogger.hpp>
 
 using spb = asio::serial_port_base;
 using drivers::common::IoContext;
@@ -236,6 +238,8 @@ private:
   Functor m_func;
   static constexpr size_t m_recv_buffer_size{2048};
   std::vector<uint8_t> m_recv_buffer;
+
+  DDSLogger logger;
 };
 
 }  // namespace serial_driver

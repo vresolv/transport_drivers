@@ -21,7 +21,9 @@
 #include <vector>
 #include <utility>
 
-#include "io_context/common.hpp"
+#include "common.hpp"
+
+#include <DDSLogger.hpp>
 
 namespace drivers
 {
@@ -83,6 +85,8 @@ private:
   std::shared_ptr<asio::io_service> m_ios;
   std::shared_ptr<asio::io_service::work> m_work;
   std::shared_ptr<drivers::common::thread_group> m_ios_thread_workers;
+
+  DDSLogger logger;
 };
 
 }  // namespace common
