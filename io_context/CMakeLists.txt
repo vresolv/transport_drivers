@@ -17,7 +17,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(io_context)
 
-
 # Default to C++17
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 17)
@@ -35,5 +34,5 @@ add_library(${PROJECT_NAME} STATIC
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/io_context)
 
 
-target_link_libraries(${PROJECT_NAME} DDSCommon asio_libs)
+target_link_libraries(${PROJECT_NAME} DDSCommon asio::asio)
 

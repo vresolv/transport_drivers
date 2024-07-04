@@ -33,4 +33,4 @@ add_library(${PROJECT_NAME} STATIC
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-target_link_libraries(${PROJECT_NAME} asio_libs io_context DDSCommon)
+target_link_libraries(${PROJECT_NAME} asio::asio io_context DDSCommon)
